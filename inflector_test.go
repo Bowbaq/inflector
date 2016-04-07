@@ -66,6 +66,7 @@ var pluralTests = []inflectorTest{
 	{"goose", "geese"},
 	{"foot", "feet"},
 	{"objective", "objectives"},
+	{"archive", "archives"},
 	{"", ""},
 }
 
@@ -141,6 +142,7 @@ var singularTests = []inflectorTest{
 	{"geese", "goose"},
 	{"feet", "foot"},
 	{"objectives", "objective"},
+	{"archives", "archive"},
 	{"", ""},
 }
 
