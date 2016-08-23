@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+	"sync"
 )
 
 // Rule represents name of the inflector rule, can be
@@ -59,7 +60,10 @@ type compiledRule struct {
 	*regexp.Regexp
 }
 
-var rules = make(map[Rule]*InflectorRule)
+var (
+	mu    sync.Mutex
+	rules = make(map[Rule]*InflectorRule)
+)
 
 // Words that should not be inflected
 var uninflected = []string{
@@ -312,6 +316,9 @@ func Singularize(s string) string {
 }
 
 func getInflected(r Rule, s string) string {
+	mu.Lock()
+	defer mu.Unlock()
+
 	if v, ok := caches[r][s]; ok {
 		return v
 	}
